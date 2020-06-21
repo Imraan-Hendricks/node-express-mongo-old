@@ -1,0 +1,11 @@
+{
+  "name": "node-express-mongo",
+  "version": "0.1.0",
+  "description": "Server side structure using express, mongoDB and node js. Built for web and mobile applications.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Imraan-Hendricks",
+  "license": "ISC"
+}
