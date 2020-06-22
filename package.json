@@ -4,6 +4,8 @@
   "description": "Server side structure using express, mongoDB and node js. Built for web and mobile applications.",
   "main": "app.js",
   "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon app",
+    "start": "cross-env NODE_ENV=production node app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Imraan-Hendricks",
