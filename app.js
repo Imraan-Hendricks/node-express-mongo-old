@@ -6,8 +6,6 @@ const { shutdown } = require('./services/services');
 
 dotenv.config({ path: './config/.env' });
 
-db.connect();
-
 const app = express();
 
 app.use(express.json());
@@ -17,7 +15,9 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.use(shutdown.handleRequests());
 
-require('./routes/routes')(app);
+db.connect().then(() => {
+  require('./routes/routes')(app);
+});
 
 const PORT = process.env.PORT || 5000;
 
