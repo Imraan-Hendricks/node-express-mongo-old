@@ -17,6 +17,8 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.use(shutdown.handleRequests());
 
+require('./routes/routes')(app);
+
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT, () => {
