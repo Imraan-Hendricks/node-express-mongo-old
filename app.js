@@ -2,7 +2,7 @@ const express = require('express');
 const db = require('./config/db');
 const dotenv = require('dotenv');
 const path = require('path');
-const { session, shutdown } = require('./services/services');
+const shutdown = require('./services/shutdown');
 
 dotenv.config({ path: './config/.env' });
 
@@ -16,7 +16,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(shutdown.handleRequests());
 
 db.connect().then(() => {
-  session(app);
+  require('./services/session')(app);
   require('./routes/routes')(app);
 });
 
