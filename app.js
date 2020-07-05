@@ -17,6 +17,7 @@ app.use(shutdown.handleRequests());
 
 db.connect().then(() => {
   require('./services/session')(app);
+  require('./services/google-auth')();
   require('./routes/routes')(app);
 });
 
