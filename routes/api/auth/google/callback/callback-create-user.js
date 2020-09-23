@@ -2,9 +2,7 @@ const User = require('../../../../../models/User');
 const { handle } = require('./callback-helpers');
 
 module.exports = async (req, res, next) => {
-  if (req.body.user) {
-    return next();
-  }
+  if (req.body.user) return next();
 
   const newUser = req.body.profile;
 
@@ -24,5 +22,6 @@ module.exports = async (req, res, next) => {
   }
 
   req.body.user = user;
+
   next();
 };

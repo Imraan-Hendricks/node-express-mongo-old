@@ -11,6 +11,5 @@ const config = {
   callbackURL: '/api/auth/google/callback',
 };
 
-const verify = async (accessToken, refreshToken, profile, done) => {
-  return done(null, profile);
-};
+const verify = async (accessToken, refreshToken, profile, done) =>
+  done(null, profile);

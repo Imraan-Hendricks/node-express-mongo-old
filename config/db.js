@@ -5,9 +5,7 @@ var connections = {
 };
 
 exports.connect = async () => {
-  if (connections.main) {
-    return;
-  }
+  if (connections.main) return;
 
   try {
     let main = await mongoose.createConnection(process.env.MONGO_URI, {
@@ -27,9 +25,7 @@ exports.connect = async () => {
   }
 };
 
-exports.getConnections = () => {
-  return connections;
-};
+exports.getConnections = () => connections;
 
 exports.closeConnections = async () => {
   try {

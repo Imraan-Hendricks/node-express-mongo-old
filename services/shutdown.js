@@ -17,19 +17,15 @@ const cleanup = (server, db) => {
   }, 30 * 1000);
 };
 
-exports.handleRequests = () => {
-  return (req, res, next) => {
-    if (!state) return next();
+exports.handleRequests = () => (req, res, next) => {
+  if (!state) return next();
 
-    res.setHeader('Connection', 'close');
-    res.status(503).send('Server is in the process of restarting');
-  };
+  res.setHeader('Connection', 'close');
+  res.status(503).send('Server is in the process of restarting');
 };
 
-exports.onInterrupt = (server, db) => {
+exports.onInterrupt = (server, db) =>
   process.on('SIGINT', () => cleanup(server, db));
-};
 
-exports.onTerminate = (server, db) => {
+exports.onTerminate = (server, db) =>
   process.on('SIGTERM', () => cleanup(server, db));
-};
