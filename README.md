@@ -2,14 +2,27 @@
 
 Server side structure using express, mongoDB and node js. Built for web and mobile applications.
 
-## Available Scripts
+### Features include:
 
-In the project directory, you can run:
+- Authentication
+- dev and production npm scripts
+- dotenv
+- email REST
+- express validator
 
-### `npm run start`
+### Requirements:
 
-Starts the server in production mode
+- node js v12 (current version: 12.18.0)
 
-### `npm run dev`
+### Usage:
 
-Starts the server in development mode
+- clone repository or download source code
+- acquire nodemailer api keys (https://console.cloud.google.com/)
+- create .env file in config dir and add environment variables, which will include the above mentioned api keys (see: /config/.env.example)
+- open project directory in terminal
+- run npm install
+- npm run dev
+
+### Production:
+
+To start the server in production mode run `npm run start`
