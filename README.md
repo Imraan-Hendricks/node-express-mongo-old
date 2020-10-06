@@ -7,8 +7,6 @@ Server side structure using express, mongoDB and node js. Built for web and mobi
 - Authentication
 - dev and production npm scripts
 - dotenv
-- email REST
-- express validator
 
 ### Requirements:
 
@@ -18,7 +16,7 @@ Server side structure using express, mongoDB and node js. Built for web and mobi
 
 - clone repository or download source code
 - acquire nodemailer api keys (https://console.cloud.google.com/)
-- create .env file in config dir and add environment variables, which will include the above mentioned api keys (see: /config/.env.example)
+- create .env file in config dir and add environment variables (see: /config/.env.example)
 - open project directory in terminal
 - run npm install
 - npm run dev
