@@ -2,7 +2,7 @@ const express = require('express');
 const db = require('./config/db');
 const dotenv = require('dotenv');
 const path = require('path');
-const shutdown = require('./services/shutdown');
+const shutdown = require('./middleware/shutdown');
 
 dotenv.config({ path: './config/.env' });
 
@@ -16,8 +16,8 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(shutdown.handleRequests());
 
 db.connect().then(() => {
-  require('./services/session')(app);
-  require('./services/google-auth')();
+  require('./middleware/session')(app);
+  require('./middleware//google-auth')();
   require('./routes/routes')(app);
 });
 
