@@ -18,7 +18,6 @@ app.use(shutdown.handleRequests());
 db.connect().then(() => {
   require('./middleware/session')(app);
   require('./middleware/passport')(app);
-  require('./middleware//google-auth')();
   require('./routes/routes')(app);
 });
 
