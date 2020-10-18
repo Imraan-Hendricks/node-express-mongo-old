@@ -1,4 +1,5 @@
 const path = require('path');
+const { NODE_ENV } = require('../config/env');
 
 module.exports = (app) => {
   app.use('/api', require('./api/api'));
@@ -7,7 +8,7 @@ module.exports = (app) => {
   app.get('*', (req, res) => {
     let client;
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (NODE_ENV !== 'production') {
       client = 'http://localhost:3000';
       const url = req.originalUrl;
       return res.redirect(client + url);

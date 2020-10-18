@@ -1,5 +1,6 @@
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport');
+const { GOOGLE_AUTH_CLIENT_ID, GOOGLE_AUTH_CLIENT_SECRET } = require('../config/env');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../models/User');
 
 module.exports = (app) => {
@@ -16,8 +17,8 @@ module.exports = (app) => {
 };
 
 const config = {
-  clientID: process.env.GOOGLE_AUTH_CLIENT_ID,
-  clientSecret: process.env.GOOGLE_AUTH_CLIENT_SECRET,
+  clientID: GOOGLE_AUTH_CLIENT_ID,
+  clientSecret: GOOGLE_AUTH_CLIENT_SECRET,
   callbackURL: '/api/auth/google/callback',
 };
 

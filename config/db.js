@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { DBUSER, DBPASSWORD, DBNAME, MONGO_URI } = require('./env');
 
 var connections = {
   main: null,
@@ -8,13 +9,13 @@ exports.connect = async () => {
   if (connections.main) return;
 
   try {
-    let main = await mongoose.createConnection(process.env.MONGO_URI, {
+    let main = await mongoose.createConnection(MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
-      // user: '',
-      // pass: '',
-      dbName: process.env.DBNAME,
+      user: DBUSER,
+      pass: DBPASSWORD,
+      dbName: DBNAME,
     });
 
     connections.main = main;

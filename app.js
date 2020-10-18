@@ -1,10 +1,8 @@
 const express = require('express');
+const { NODE_ENV, PORT } = require('./config/env');
 const db = require('./config/db');
-const dotenv = require('dotenv');
 const path = require('path');
 const shutdown = require('./middleware/shutdown');
-
-dotenv.config({ path: './config/.env' });
 
 const app = express();
 
@@ -21,10 +19,8 @@ db.connect().then(() => {
   require('./routes/routes')(app);
 });
 
-const PORT = process.env.PORT || 5000;
-
 const server = app.listen(PORT, () =>
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
+  console.log(`Server running in ${NODE_ENV} mode on port ${PORT}`)
 );
 
 shutdown.onInterrupt(server, db);
