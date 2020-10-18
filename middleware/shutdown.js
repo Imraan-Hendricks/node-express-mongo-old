@@ -1,11 +1,13 @@
-var state = false;
+const { closeConnections } = require('../config/db');
 
-const cleanup = (server, db) => {
+let state = false;
+
+const cleanup = (server) => {
   state = true;
   console.log('Closing http server');
   server.close(() => {
     console.log('Http server closed');
-    db.closeConnections().then(() => {
+    closeConnections().then(() => {
       console.log('Shutting down');
       process.exit(0);
     });
@@ -24,8 +26,8 @@ exports.handleRequests = () => (req, res, next) => {
   res.status(503).send('Server is in the process of restarting');
 };
 
-exports.onInterrupt = (server, db) =>
-  process.on('SIGINT', () => cleanup(server, db));
+exports.onInterrupt = (server) =>
+  process.on('SIGINT', () => cleanup(server));
 
-exports.onTerminate = (server, db) =>
-  process.on('SIGTERM', () => cleanup(server, db));
+exports.onTerminate = (server) =>
+  process.on('SIGTERM', () => cleanup(server));

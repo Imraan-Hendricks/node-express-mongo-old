@@ -23,5 +23,5 @@ const server = app.listen(PORT, () =>
   console.log(`Server running in ${NODE_ENV} mode on port ${PORT}`)
 );
 
-shutdown.onInterrupt(server, db);
-shutdown.onTerminate(server, db);
+shutdown.onInterrupt(server);
+shutdown.onTerminate(server);
