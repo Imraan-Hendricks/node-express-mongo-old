@@ -4,7 +4,7 @@
   "description": "Server side structure using express, mongoDB and node js. Built for web and mobile applications.",
   "main": "app.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon app",
+    "dev": "cross-env NODE_ENV=development nodemon -r dotenv/config app dotenv_config_path=config/.env",
     "start": "cross-env NODE_ENV=production node app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,7 +13,6 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "connect-mongo": "^3.2.0",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "express-validator": "^6.6.0",
@@ -28,6 +27,7 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
     "nodemon": "^2.0.4"
   }
 }
