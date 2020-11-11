@@ -6,7 +6,7 @@ var connections = {
 };
 
 exports.connect = async () => {
-  if (connections.main) return;
+  if (connections.main) return console.log('DB connection already established');
 
   try {
     let main = await mongoose.createConnection(MONGO_URI, {
