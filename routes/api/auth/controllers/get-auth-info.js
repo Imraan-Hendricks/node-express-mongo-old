@@ -1,4 +1,4 @@
-module.exports = (req, res) => {
+exports.getAuthInfoController = (req, res) => {
   const response = {
     success: true,
     data: {

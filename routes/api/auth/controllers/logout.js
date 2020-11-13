@@ -1,4 +1,4 @@
-module.exports = (req, res) => {
+exports.logoutController = (req, res) => {
   const user = req.user;
 
   req.logout();
