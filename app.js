@@ -2,6 +2,9 @@ const express = require('express');
 const { NODE_ENV, PORT } = require('./config/env');
 const db = require('./config/db');
 const path = require('path');
+const { passport } = require('./middleware/passport');
+const routes = require('./routes/routes');
+const { session } = require('./middleware/session');
 const shutdown = require('./middleware/shutdown');
 
 const app = express();
@@ -14,9 +17,9 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(shutdown.handleRequests());
 
 db.connect().then(() => {
-  require('./middleware/session')(app);
-  require('./middleware/passport')(app);
-  require('./routes/routes')(app);
+  session(app);
+  passport(app);
+  routes(app);
 });
 
 const server = app.listen(PORT, () =>

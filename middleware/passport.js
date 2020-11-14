@@ -1,11 +1,10 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const ObjectId = require('mongoose').Types.ObjectId;
-const User = require('../models/User');
 const {
   GOOGLE_AUTH_CLIENT_ID,
   GOOGLE_AUTH_CLIENT_SECRET,
 } = require('../config/env');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 const googleAuth = () => {
   const config = {
@@ -21,6 +20,7 @@ const googleAuth = () => {
 };
 
 const serialization = () => {
+  const User = require('../models/User');
   passport.serializeUser((user, done) => {
     if (!ObjectId.isValid(user.id)) return done(true, null);
     done(null, user.id);
@@ -31,7 +31,7 @@ const serialization = () => {
   );
 };
 
-module.exports = (app) => {
+exports.passport = (app) => {
   app.use(passport.initialize());
   app.use(passport.session());
 
