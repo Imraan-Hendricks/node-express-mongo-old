@@ -20,7 +20,7 @@ const googleAuth = () => {
 };
 
 const serialization = () => {
-  const User = require('../models/User');
+  const { User } = require('../models/User');
   passport.serializeUser((user, done) => {
     if (!ObjectId.isValid(user.id)) return done(true, null);
     done(null, user.id);

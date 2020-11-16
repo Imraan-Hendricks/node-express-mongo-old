@@ -1,5 +1,9 @@
 exports.routes = (app) => {
-  app.use('/api', require('./api/api'));
-  app.use('/backOffice', require('./back-office/back-office'));
-  app.use(require('./client/client'));
+  const { ApiRouter } = require('./api/api-router');
+  const { BackOfficeRouter } = require('./back-office/back-office-router');
+  const { ClientRouter } = require('./client/client-router');
+
+  app.use('/api', ApiRouter);
+  app.use('/backOffice', BackOfficeRouter);
+  app.use(ClientRouter);
 };

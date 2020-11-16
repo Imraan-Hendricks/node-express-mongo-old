@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const { getConnections } = require('../config/db');
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
@@ -36,4 +36,4 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-module.exports = db.getConnections().main.model('User', UserSchema);
+exports.User = getConnections().main.model('User', UserSchema);

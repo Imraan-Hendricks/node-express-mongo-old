@@ -1,5 +1,5 @@
 const passport = require('passport');
-const User = require('../../../../../models/User');
+const { User } = require('../../../../../models/User');
 const { dbErr, handle } = require('../../../../../utils/common');
 
 const passportAuthenticate = (req, res) =>
@@ -57,7 +57,7 @@ const login = (req, user) =>
     });
   });
 
-exports.callbackController = async (req, res) => {
+exports.callback = async (req, res) => {
   try {
     const profile = await passportAuthenticate(req, res);
 

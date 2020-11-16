@@ -1,8 +1,8 @@
 const express = require('express');
-const ClientRouter = express.Router();
 const { NODE_ENV } = require('../../config/env');
 const path = require('path');
 
+const ClientRouter = express.Router();
 const clientPath = path.join(__dirname, '../../../client/build');
 
 ClientRouter.get(
@@ -17,4 +17,4 @@ ClientRouter.get(
   (req, res) => res.sendFile(clientPath)
 );
 
-module.exports = ClientRouter;
+exports.ClientRouter = ClientRouter;
