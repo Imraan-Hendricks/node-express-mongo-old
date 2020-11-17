@@ -19,15 +19,23 @@ const cleanup = (server) => {
   }, 30 * 1000);
 };
 
-exports.handleRequests = () => (req, res, next) => {
+const handleRequests = (req, res, next) => {
   if (!state) return next();
 
   res.setHeader('Connection', 'close');
   res.status(503).send('Server is in the process of restarting');
 };
 
-exports.onInterrupt = (server) =>
+const onInterrupt = (server) => {
   process.on('SIGINT', () => cleanup(server));
+};
 
-exports.onTerminate = (server) =>
+const onTerminate = (server) => {
   process.on('SIGTERM', () => cleanup(server));
+};
+
+exports.shutdown = (app, server) => {
+  app.use(handleRequests);
+  onInterrupt(server);
+  onTerminate(server);
+};
