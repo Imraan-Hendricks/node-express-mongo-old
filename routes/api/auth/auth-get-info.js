@@ -1,4 +1,4 @@
-exports.getAuthInfo = (req, res) => {
+exports.getInfo = (req, res) => {
   const response = {
     success: true,
     data: {

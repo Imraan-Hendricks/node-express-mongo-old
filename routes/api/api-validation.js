@@ -1,4 +1,4 @@
-const { validate, res } = require('../../../utils/validation');
+const { validate, res } = require('../../utils/validation');
 
 const contentType = (type, isRequired) =>
   validate({ type, field: 'content-type', isRequired })

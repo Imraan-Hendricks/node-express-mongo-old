@@ -1,6 +1,6 @@
-const { check } = require('./contact-us-validation');
-const { MAIL_TO } = require('../../../config/env');
-const { transporter } = require('../../../config/nodemailer');
+const { check } = require('./api-validation');
+const { MAIL_TO } = require('../../config/env');
+const { transporter } = require('../../config/nodemailer');
 
 const validation = [
   check.contentType('header', true),

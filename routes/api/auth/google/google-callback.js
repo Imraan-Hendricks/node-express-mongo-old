@@ -1,6 +1,6 @@
 const passport = require('passport');
-const { User } = require('../../../../../models/User');
-const { dbErr, handle } = require('../../../../../utils/common');
+const { User } = require('../../../../models/User');
+const { dbErr, handle } = require('../../../../utils/common');
 
 const passportAuthenticate = (req, res) =>
   new Promise((resolve, reject) => {

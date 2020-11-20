@@ -1,6 +1,6 @@
 const express = require('express');
 const { AuthRouter } = require('./auth/auth-router');
-const { contactUs } = require('./controllers/contact-us');
+const { contactUs } = require('./api-contact-us');
 
 const ApiRouter = express.Router();
 
