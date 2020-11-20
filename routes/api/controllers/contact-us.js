@@ -1,7 +1,17 @@
+const { check } = require('./contact-us-validation');
 const { MAIL_TO } = require('../../../config/env');
 const { transporter } = require('../../../config/nodemailer');
 
-exports.contactUs = async (req, res) => {
+const validation = [
+  check.contentType('header', true),
+  check.firstName('body', true),
+  check.lastName('body', true),
+  check.email('body', true),
+  check.message('body', true),
+  check.res,
+];
+
+const contactUs = async (req, res) => {
   const { firstName, lastName, email, message } = req.body;
 
   const html = `
@@ -48,3 +58,5 @@ exports.contactUs = async (req, res) => {
     });
   }
 };
+
+exports.contactUs = [...validation, contactUs];
