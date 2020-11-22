@@ -4,6 +4,7 @@ const {
   GOOGLE_AUTH_CLIENT_ID,
   GOOGLE_AUTH_CLIENT_SECRET,
 } = require('../config/env');
+const { handle } = require('../utils/common');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 const googleAuth = () => {
@@ -21,14 +22,25 @@ const googleAuth = () => {
 
 const serialization = () => {
   const { User } = require('../models/User');
+
   passport.serializeUser((user, done) => {
-    if (!ObjectId.isValid(user.id)) return done(true, null);
-    done(null, user.id);
+    if (!ObjectId.isValid(user._id)) return done(true, null);
+    done(null, user._id);
   });
 
-  passport.deserializeUser((id, done) =>
-    User.findById(id, (err, user) => done(err, user))
-  );
+  passport.deserializeUser(async (_id, done) => {
+    const projection = {
+      _id: 1,
+      displayName: 1,
+      firstName: 1,
+      lastName: 1,
+      email: 1,
+      createdAt: 1,
+    };
+
+    const [user, err] = await handle(User.findById(_id, projection).lean());
+    done(err, user);
+  });
 };
 
 exports.passport = (app) => {
