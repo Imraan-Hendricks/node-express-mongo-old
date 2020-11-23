@@ -15,19 +15,23 @@ const passportAuthenticate = (req, res) =>
           },
         ]);
 
-      resolve({
-        displayName: profile.displayName,
-        firstName: profile.name.givenName,
-        lastName: profile.name.familyName,
-        email: profile.emails[0].value,
-        provider: profile.provider,
-        googleId: profile.id,
-      });
+      resolve(profile);
     })(req, res);
   });
 
 const findUser = async (googleId) => {
-  const [user, err] = await handle(User.findOne({ googleId }));
+  const projection = {
+    _id: 1,
+    displayName: 1,
+    firstName: 1,
+    lastName: 1,
+    email: 1,
+    createdAt: 1,
+  };
+
+  const [user, err] = await handle(
+    User.findOne({ googleId }, projection).lean()
+  );
   if (err) throw dbErr;
 
   return user;
@@ -37,7 +41,14 @@ const createUser = async (profile) => {
   const [user, err] = await handle(User.create(profile));
   if (err) throw dbErr;
 
-  return user;
+  return {
+    _id: user._id,
+    displayName: user.displayName,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    createdAt: user.createdAt,
+  };
 };
 
 const login = (req, user) =>

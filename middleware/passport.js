@@ -14,8 +14,15 @@ const googleAuth = () => {
     callbackURL: '/api/auth/google/callback',
   };
 
-  const verify = async (accessToken, refreshToken, profile, done) =>
-    done(null, profile);
+  const verify = (accessToken, refreshToken, profile, done) =>
+    done(null, {
+      displayName: profile.displayName,
+      firstName: profile.name.givenName,
+      lastName: profile.name.familyName,
+      email: profile.emails[0].value,
+      provider: profile.provider,
+      googleId: profile.id,
+    });
 
   passport.use(new GoogleStrategy(config, verify));
 };
