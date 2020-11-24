@@ -19,8 +19,15 @@ const setDefault = (chain, defaultValue) => {
 };
 
 const required = (chain, isRequired) => {
-  if (isRequired !== true) return;
-  chain.notEmpty().withMessage('required').bail();
+  if (isRequired === true) {
+    chain.notEmpty().withMessage('required').bail();
+    return;
+  }
+
+  chain.if((value) => {
+    if (value === undefined) return false;
+    return true;
+  });
 };
 
 const length = (chain, min, max) => {
@@ -30,7 +37,7 @@ const length = (chain, min, max) => {
 
 const parseJson = (chain, toJson) => {
   if (toJson !== true) return;
-  chain.isJson().withMessage('must be json').bail();
+  chain.isJSON().withMessage('must be json').bail();
   chain.customSanitizer((value) => JSON.parse(value));
 };
 
