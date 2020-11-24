@@ -7,7 +7,21 @@ exports.dbErr = [
   },
 ];
 
-exports.handle = (promise) =>
-  promise
-    .then((data) => [data, undefined])
-    .catch((error) => Promise.resolve([undefined, error ? error : true]));
+exports.handle = async (promise) => {
+  try {
+    const data = await promise;
+    return [data, undefined];
+  } catch (err) {
+    if (!err)
+      err = [
+        {
+          location: 'handle',
+          param: '',
+          msg: 'an error has occured',
+          value: '',
+        },
+      ];
+
+    return [undefined, err];
+  }
+};
