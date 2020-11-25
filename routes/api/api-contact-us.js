@@ -1,4 +1,5 @@
 const { check } = require('./api-validation');
+const { handle } = require('../../utils/common');
 const { MAIL_TO } = require('../../config/env');
 const { transporter } = require('../../config/nodemailer');
 
@@ -11,9 +12,7 @@ const validation = [
   check.res,
 ];
 
-const contactUs = async (req, res) => {
-  const { firstName, lastName, email, message } = req.body;
-
+const contactUs = async (firstName, lastName, email, message) => {
   const html = `
     <div>
       <p>${message}</p>
@@ -26,37 +25,37 @@ const contactUs = async (req, res) => {
       <hr />
     </div>`;
 
-  try {
-    await transporter.sendMail({
-      from: `${firstName} ${lastName} <${email}>`,
-      to: MAIL_TO,
-      replyTo: email,
-      subject: 'Enquiry',
-      html: html,
-    });
+  const mailOptions = {
+    from: `${firstName} ${lastName} <${email}>`,
+    to: MAIL_TO,
+    replyTo: email,
+    subject: 'Enquiry',
+    html,
+  };
 
-    res.json({
-      success: true,
-      data: {
-        firstName,
-        lastName,
-        email,
-        message,
+  const { 1: err } = await handle(transporter.sendMail(mailOptions));
+
+  if (err)
+    throw [
+      {
+        location: 'nodemailer',
+        param: '',
+        msg: 'Email failed. Please try again',
+        value: '',
       },
-    });
-  } catch {
-    res.json({
-      success: false,
-      err: [
-        {
-          location: 'nodemailer',
-          param: '',
-          msg: 'Email failed. Please try again',
-          value: '',
-        },
-      ],
-    });
+    ];
+
+  return { firstName, lastName, email, message };
+};
+
+const handleContactUs = async (req, res) => {
+  try {
+    const { firstName, lastName, email, message } = req.body;
+    const data = await contactUs(firstName, lastName, email, message);
+    res.json({ succuss: true, data });
+  } catch (err) {
+    res.json({ success: false, err });
   }
 };
 
-exports.contactUs = [...validation, contactUs];
+exports.contactUs = [...validation, handleContactUs];
