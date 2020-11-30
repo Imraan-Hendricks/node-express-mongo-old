@@ -13,13 +13,16 @@ exports.handle = async (promise) => {
     return [data, undefined];
   } catch (err) {
     if (!err)
-      err = [
-        {
-          location: 'handle',
-          param: '',
-          msg: 'an error has occured',
-          value: '',
-        },
+      return [
+        undefined,
+        [
+          {
+            location: 'handle',
+            param: '',
+            msg: 'an error has occured',
+            value: '',
+          },
+        ],
       ];
 
     return [undefined, err];
