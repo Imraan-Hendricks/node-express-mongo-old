@@ -2,6 +2,10 @@ const { getConnections } = require('../config/db');
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: false,
+  },
   displayName: {
     type: String,
     required: true,
@@ -20,11 +24,15 @@ const UserSchema = new mongoose.Schema({
   },
   provider: {
     type: String,
-    required: true,
+    required: false,
   },
   googleId: {
     type: String,
-    required: true,
+    required: false,
+  },
+  password: {
+    type: String,
+    required: false,
   },
   createdAt: {
     type: Date,
